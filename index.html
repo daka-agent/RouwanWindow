@@ -182,7 +182,9 @@ function apply(){
      遮罩恒为全盒椭圆裁剪，终止线位置按盘面区间 [16.7%, 63.1%] 折算 */
   var ep = day.moon.earthPhase;
   var k = Math.max(0.08, (1 - Math.cos(2 * Math.PI * ep)) / 2);
-  var P = 16.7 + (1 - k) * 46.4;   /* 暗区终止线（盒宽百分比）*/
+  /* 暗区终止线（盒宽百分比）：盘面在新 earth-box 内占 6.59%~60.24%，
+     终止线在盘面左右缘之间随 k 插值（v14 重标定；k=0.08 时盘面只剩右侧一圈微光边）*/
+  var P = 6.6 + (1 - k) * 53.6;
   document.getElementById("phaseMask").style.background =
     "linear-gradient(90deg,rgba(5,9,14,.985) 0%,rgba(5,9,14,.985) " +
     P.toFixed(2) + "%,rgba(5,9,14,0) " + (P + 0.85).toFixed(2) + "%)";
